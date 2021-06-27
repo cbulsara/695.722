@@ -1,5 +1,3 @@
-from scapy.all import *
-
 #!/bin/python3
 from scapy.all import *
 import argparse
@@ -14,7 +12,9 @@ def main():
     args = parser.parse_args()
     print( args )
 
-    pkts = sniff(filter="src " + args.sourceIp + " && tcp dst port " + args.destinationPort, \
+    pkts = sniff(filter="src " + args.sourceIP + \
+                " && dst " + args.destinationIP + \
+                " && tcp dst port " + str(args.dport), \
                 prn=lambda x:int(x[TCP].seq/16777216))
 
 
