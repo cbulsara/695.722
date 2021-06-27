@@ -15,10 +15,10 @@ def encodeText(plaintext):
 def main():
     
     args = parser.parse_args()
-    print(args)
+    print( args )
 
     for element in args.plaintext:
-        sendp(Ether()/IP(src=args.sourceIP, dst=args.destinationIP)/TCP(seq=encodeText(element),dport=args.dport))
+        send(Ether()/IP(src=args.sourceIP, dst=args.destinationIP)/TCP(seq=encodeText(element),dport=args.dport))
 
 if __name__ == "__main__":
     main()

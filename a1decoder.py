@@ -15,7 +15,7 @@ def main():
     pkts = sniff(filter="src " + args.sourceIP + \
                 " && dst " + args.destinationIP + \
                 " && tcp dst port " + str(args.dport), \
-                prn=lambda x:int(x[TCP].seq/16777216))
+                prn=lambda x:chr(int(x[TCP].seq/16777216)))
 
 
 if __name__ == "__main__":
