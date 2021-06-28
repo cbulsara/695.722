@@ -18,7 +18,7 @@ def main():
     print( args )
 
     for element in args.plaintext:
-        send(Ether()/IP(src=args.sourceIP, dst=args.destinationIP)/TCP(seq=encodeText(element),dport=args.dport))
+        sendp(Ether()/IP(src=args.sourceIP, dst=args.destinationIP)/TCP(seq=encodeText(element),dport=args.dport))
 
 if __name__ == "__main__":
     main()
