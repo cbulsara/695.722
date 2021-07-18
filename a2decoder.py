@@ -1,22 +1,26 @@
-#!/bin/python3
-from scapy.all import *
-import argparse
+#!/usr/bin/env python3
 
-parser=argparse.ArgumentParser(description='Pass args to Assignment 1')
-parser.add_argument('sourceIP', metavar="sourceIP", type=str, help="Source IP")
-parser.add_argument('destinationIP', metavar="destinationIP", type=str, help="Destination IP")
-parser.add_argument('--dport', metavar="destinationPort", type=int, default=4443, help="Destination port (default 4443")
+import http.server as SimpleHTTPServer
+import socketserver as SocketServer
+import logging
+
+PORT = 80
+
+class GetHandler(
+        SimpleHTTPServer.SimpleHTTPRequestHandler
+        ):
+
+    def do_GET(self):
+        #logging.error(self.headers)
+        if 'Content-Md5' in self.headers:
+            print(self.headers['Content-MD5'])
+            print(chr(int(self.headers['Content-MD5']) / 16777216))
 
 
-def main():
-    args = parser.parse_args()
-    print( args )
-
-    pkts = sniff(filter="src " + args.sourceIP + \
-                " && dst " + args.destinationIP + \
-                " && tcp dst port " + str(args.dport), \
-                prn=lambda x:chr(int(x[TCP].seq/16777216)))
+        SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
 
-if __name__ == "__main__":
-    main()
+Handler = GetHandler
+httpd = SocketServer.TCPServer(("", PORT), Handler)
+
+httpd.serve_forever()
