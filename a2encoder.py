@@ -19,7 +19,7 @@ def main():
     print( args )
 
     for element in args.plaintext:
-        http_request(destinationIP, Content_MD5=str(encodeText(element)))
+        http_request(args.destinationIP, Content_MD5=str(encodeText(element)))
 
 
 if __name__ == "__main__":

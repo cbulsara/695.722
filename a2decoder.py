@@ -14,7 +14,7 @@ class GetHandler(
         #logging.error(self.headers)
         if 'Content-Md5' in self.headers:
             print(self.headers['Content-MD5'])
-            print(chr(int(self.headers['Content-MD5']) / 16777216))
+            print(chr(int(int(self.headers['Content-MD5']) / 16777216)))
 
 
         SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
