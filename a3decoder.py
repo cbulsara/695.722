@@ -16,7 +16,7 @@ def main():
     pkts = sniff(filter="src " + args.sourceIP + \
                 " && dst " + args.destinationIP + \
                 " && udp dst port " + str(args.dport), \
-                prn=lambda x: base64.b64decode(x[DNS].qd.qname.split(".", 1)[0].encode("utf-8")).decode())
+                prn=lambda x: (base64.b64decode(x[DNS].qd.qname.decode().split(".", 1)[0] + "==")).decode())
 
 if __name__ == "__main__":
     main()
